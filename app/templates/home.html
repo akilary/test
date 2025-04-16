@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block title %}InnoMart - Ваш магазин инновационных технологий в Казахстане{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+{% endblock %}
+
+{% block content %}
+    <main class="main">
+        <section class="hero-section">
+            <div class="container">
+                <div class="hero__content">
+                    <span class="hero__label">Инновации доступны каждому</span>
+                    <h1 class="hero__title">Технологии будущего уже сегодня</h1>
+                    <p class="hero__description">Откройте мир инновационных технологий с InnoMart - ведущим поставщиком
+                        электроники, робототехники и 3D-печати в Казахстане</p>
+                    <div class="hero__actions">
+                        <a href="{{ url_for('shop.catalog') }}" class="button button--primary">
+                            <span class="material-icons">shopping_cart</span>
+                            Перейти в каталог
+                        </a>
+                        <a href="{{ url_for('shop.about') }}" class="button button--outline">
+                            <span class="material-icons">info</span>
+                            Узнать больше
+                        </a>
+                    </div>
+                </div>
+                <div class="hero__stats">
+                    <div class="stat-item">
+                        <span class="stat-number">11+</span>
+                        <span class="stat-label">категорий товаров</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">1000+</span>
+                        <span class="stat-label">товаров в наличии</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">техподдержка</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features-section">
+            <div class="container">
+                <div class="features__grid">
+                    <div class="feature">
+                        <span class="material-icons">local_shipping</span>
+                        <h3>Доставка по всему Казахстану</h3>
+                        <p>Быстрая доставка во все регионы страны</p>
+                    </div>
+                    <div class="feature">
+                        <span class="material-icons">verified</span>
+                        <h3>Гарантия качества</h3>
+                        <p>Только сертифицированные товары от официальных поставщиков</p>
+                    </div>
+                    <div class="feature">
+                        <span class="material-icons">payments</span>
+                        <h3>Удобная оплата</h3>
+                        <p>Kaspi.kz и другие способы оплаты</p>
+                    </div>
+                    <div class="feature">
+                        <span class="material-icons">support_agent</span>
+                        <h3>Поддержка 24/7</h3>
+                        <p>Консультации на русском и казахском языках</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="categories-section">
+            <div class="container">
+                <h2 class="section-title">Популярные категории</h2>
+                <div class="categories__grid">
+                    <a href="{{ url_for('shop.catalog') }}" class="category-card">
+                        <span class="material-icons">3d_rotation</span>
+                        <h3>3D-печать</h3>
+                        <p>Принтеры и расходные материалы</p>
+                    </a>
+                    <a href="{{ url_for('shop.catalog') }}" class="category-card">
+                        <span class="material-icons">smart_toy</span>
+                        <h3>Робототехника</h3>
+                        <p>Компоненты и готовые наборы</p>
+                    </a>
+                    <a href="{{ url_for('shop.catalog') }}" class="category-card">
+                        <span class="material-icons">memory</span>
+                        <h3>Электроника</h3>
+                        <p>Компоненты и модули</p>
+                    </a>
+                    <a href="{{ url_for('shop.catalog') }}"
+                       class="category-card">
+                        <span class="material-icons">developer_board</span>
+                        <h3>Программируемые устройства</h3>
+                        <p>Arduino, Raspberry Pi и другие</p>
+                    </a>
+                    <a href="{{ url_for('shop.catalog') }}" class="category-card">
+                        <span class="material-icons">build</span>
+                        <h3>Инструменты</h3>
+                        <p>Всё для работы с электроникой</p>
+                    </a>
+                    <a href="{{ url_for('shop.catalog') }}"
+                       class="category-card">
+                        <span class="material-icons">construction</span>
+                        <h3>DIY-наборы</h3>
+                        <p>Наборы для самостоятельной сборки</p>
+                    </a>
+                </div>
+                <div class="categories__more">
+                    <a href="{{ url_for('shop.catalog') }}" class="button button--outline">Смотреть все категории</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta__content">
+                    <h2>Нужна консультация?</h2>
+                    <p>Наши специалисты помогут подобрать оптимальное решение для вашего проекта</p>
+                    <div class="cta__actions">
+                        <a href="{{ url_for('shop.contacts') }}" class="button button--primary">
+                            <span class="material-icons">mail</span>
+                            Написать нам
+                        </a>
+                        <a href="tel:+77777777777" class="button button--outline">
+                            <span class="material-icons">phone</span>
+                            +7 (777) 777-77-77
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

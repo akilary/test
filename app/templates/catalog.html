@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+
+{% block title %}Каталог - InnoMart{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/catalog.css') }}">
+{% endblock %}
+
+{% block content %}
+    <section class="catalog-section" aria-label="Каталог товаров">
+        <div class="container">
+            {% from "components/breadcrumbs.html" import render_breadcrumbs %}
+            {{ render_breadcrumbs([
+                {'title': 'Каталог'}
+            ]) }}
+            
+            <h1 class="catalog__title">Каталог товаров</h1>
+
+            <div class="catalog__search" role="search">
+                <label for="catalog-search" class="visually-hidden">Поиск по товарам</label>
+                <input type="text" id="catalog-search" placeholder="Поиск по товарам..." class="search-input"
+                       aria-label="Поиск по товарам">
+            </div>
+
+            <div class="catalog__filters-toggle">
+                <button
+                    id="catalog-toggle-filters" class="toggle-filters catalog__btn catalog__btn--ghost" type="button"
+                    aria-expanded="false" aria-controls="filters-section">
+                    <span class="material-icons" aria-hidden="true">tune</span>
+                    <span id="toggle-text">Фильтры</span>
+                </button>
+            </div>
+            <div class="catalog__filters filter-wrapper collapsible open" id="filters-section" aria-labelledby="catalog-toggle-filters">
+                <form id="filter-form" class="catalog__filter-form filter-form" aria-label="Фильтры товаров">
+                    <div class="filter-group">
+                        <h3 class="filter-group__title">Цена</h3>
+                        <div class="price-inputs">
+                            <div class="input-group">
+                                <label for="price-min" class="visually-hidden">Минимальная цена</label>
+                                <input type="number" id="price-min" name="price_min" placeholder="0"
+                                       min="0" aria-label="Минимальная цена">
+                            </div>
+                            <div class="input-group">
+                                <label for="price-max" class="visually-hidden">Максимальная цена</label>
+                                <input type="number" id="price-max" name="price_max" placeholder="999999"
+                                       min="0" aria-label="Максимальная цена">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <h3 class="filter-group__title" id="sort-heading">Сортировка</h3>
+                        <label for="sort" class="visually-hidden">Выберите вариант сортировки</label>
+                        <select name="sort" id="sort" aria-labelledby="sort-heading">
+                            <option value="" selected disabled>Выберите вариант</option>
+                            <option value="price_asc">Сначала дешевле</option>
+                            <option value="price_desc">Сначала дороже</option>
+                            <option value="new">Сначала новые</option>
+                            <option value="popular">Популярные</option>
+                            <option value="discount">По размеру скидки</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <h3 class="filter-group__title">Наличие</h3>
+                        <div class="availability-options">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="in_stock" value="true" aria-label="Товары в наличии">
+                                <span>В наличии</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="with_discount" value="true"
+                                       aria-label="Товары со скидкой">
+                                <span>Со скидкой</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="catalog__categories">
+                        <h3 class="filter-group__title">Категории</h3>
+                        <div class="categories-chips">
+                            <input type="checkbox" id="category-3d" name="categories" value="3D-печать"
+                                   class="chip-input" aria-label="3D-печать">
+                            <label for="category-3d" class="chip">
+                                <span class="material-icons chip__icon">3d_rotation</span> 3D-печать
+                            </label>
+                            <input type="checkbox" id="category-electronics" name="categories" value="Электроника"
+                                   class="chip-input" aria-label="Электроника">
+                            <label for="category-electronics" class="chip">
+                                <span class="material-icons chip__icon">memory</span> Электроника
+                            </label>
+                            <input type="checkbox" id="category-robotics" name="categories" value="Робототехника"
+                                   class="chip-input" aria-label="Робототехника">
+                            <label for="category-robotics" class="chip">
+                                <span class="material-icons chip__icon">smart_toy</span> Робототехника
+                            </label>
+                            <input type="checkbox" id="category-materials" name="categories" value="Материалы"
+                                   class="chip-input" aria-label="Материалы">
+                            <label for="category-materials" class="chip">
+                                <span class="material-icons chip__icon">layers</span> Материалы
+                            </label>
+                            <input type="checkbox" id="category-tools" name="categories" value="Инструменты"
+                                   class="chip-input" aria-label="Инструменты">
+                            <label for="category-tools" class="chip">
+                                <span class="material-icons chip__icon">build</span> Инструменты
+                            </label>
+                            <input type="checkbox" id="category-optics" name="categories" value="Оптика"
+                                   class="chip-input" aria-label="Оптика">
+                            <label for="category-optics" class="chip">
+                                <span class="material-icons chip__icon">visibility</span> Оптика
+                            </label>
+                            <input type="checkbox" id="category-programmable" name="categories"
+                                   value="Программируемые устройства" class="chip-input"
+                                   aria-label="Программируемые устройства">
+                            <label for="category-programmable" class="chip">
+                                <span class="material-icons chip__icon">developer_board</span> Программируемые
+                                устройства
+                            </label>
+                            <input type="checkbox" id="category-mechanics" name="categories" value="Механика и крепеж"
+                                   class="chip-input" aria-label="Механика и крепеж">
+                            <label for="category-mechanics" class="chip">
+                                <span class="material-icons chip__icon">precision_manufacturing</span> Механика и крепеж
+                            </label>
+                            <input type="checkbox" id="category-energy" name="categories" value="Энергетика"
+                                   class="chip-input" aria-label="Энергетика">
+                            <label for="category-energy" class="chip">
+                                <span class="material-icons chip__icon">bolt</span> Энергетика
+                            </label>
+                            <input type="checkbox" id="category-models" name="categories"
+                                   value="Стендовые модели и DIY-наборы" class="chip-input"
+                                   aria-label="Стендовые модели и DIY-наборы">
+                            <label for="category-models" class="chip">
+                                <span class="material-icons chip__icon">toys</span> Стендовые модели и DIY-наборы
+                            </label>
+                            <input type="checkbox" id="category-consumables" name="categories"
+                                   value="Расходные материалы" class="chip-input"
+                                   aria-label="Расходные материалы">
+                            <label for="category-consumables" class="chip">
+                                <span class="material-icons chip__icon">inventory_2</span> Расходные материалы
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="catalog__filter-buttons">
+                        <button type="submit" id="apply-filters" class="catalog__btn catalog__btn--apply">
+                            <span class="material-icons" aria-hidden="true">filter_alt</span>
+                            Применить фильтры
+                        </button>
+                        <button type="button" id="reset-filters" class="catalog__btn catalog__btn--reset">
+                            <span class="material-icons" aria-hidden="true">refresh</span>
+                            Сбросить фильтры
+                        </button>
+                        <p id="products-count" class="catalog__count" aria-live="polite">
+                            Найдено: <span class="count-number">0</span>
+                        </p>
+                    </div>
+                </form>
+            </div>
+
+            <div class="catalog__cards-wrapper">
+                <div id="loading-indicator" class="loading-indicator" style="display: none;"
+                     role="status" aria-live="polite">
+                    <span class="spinner" aria-hidden="true"></span>
+                    <span>Загрузка товаров...</span>
+                </div>
+                <div id="products-container" class="catalog__cards" role="region"
+                     aria-label="Список товаров"></div>
+            </div>
+
+            <div class="products-section__load-more">
+                <button id="load-more" class="catalog__btn catalog__btn--show-more" type="button"
+                       aria-controls="products-container" aria-label="Загрузить больше товаров">
+                    <span class="material-icons" aria-hidden="true">expand_more</span>
+                    Загрузить ещё
+                </button>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+    <script type="module" src="{{ url_for('static', filename='js/products.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/wishlist.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/catalog.js') }}"></script>
+{% endblock %}

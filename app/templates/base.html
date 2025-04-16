@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="InnoMart - ваш надежный интернет-магазин">
+    <meta name="keywords" content="магазин, онлайн покупки, товары">
+    <title>{% block title %}InnoMart{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    {% block styles %}{% endblock %}
+</head>
+<body>
+<header class="site-header">
+    <div class="container">
+        <div class="header__logo">
+            <h1 class="site-logo">
+                <a href="{{ url_for('shop.home') }}" class="site-logo__link">
+                    <span class="logo-text">InnoMart</span>
+                </a>
+            </h1>
+        </div>
+
+        <div class="header__actions">
+            <nav class="user-actions">
+                <a href="{{ url_for('shop.catalog') }}" class="nav-btn" aria-label="Каталог">
+                    <span class="material-icons">menu</span>
+                    <span class="nav-btn__text">Каталог</span>
+                </a>
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('user.profile') }}" class="nav-btn" aria-label="Профиль">
+                        <span class="material-icons">person</span>
+                        <span class="nav-btn__text">Профиль</span>
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('auth.login') }}" class="nav-btn" aria-label="Войти">
+                        <span class="material-icons">login</span>
+                        <span class="nav-btn__text">Войти</span>
+                    </a>
+                {% endif %}
+                <a href="#" class="nav-btn cart-icon" aria-label="Корзина">
+                    <span class="material-icons">shopping_cart</span>
+                    <span class="nav-btn__text">Корзина</span>
+                    <span class="cart-count" aria-label="Количество товаров в корзине">0</span>
+                </a>
+            </nav>
+        </div>
+    </div>
+</header>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <aside class="flash-container">
+            {% for category, message in messages %}
+                <div class="flash-message flash-message--{{ category }}">{{ message }}</div>
+            {% endfor %}
+        </aside>
+    {% endif %}
+{% endwith %}
+
+<main class="site-content">
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer__content">
+            <div class="footer__section">
+                <h3 class="footer__title">О нас</h3>
+                <ul class="footer-list">
+                    <li class="footer-list__item"><a href="{{ url_for("shop.about") }}">О компании</a></li>
+                    <li class="footer-list__item"><a href="{{ url_for("shop.team") }}">Наша команда</a></li>
+                    <li class="footer-list__item"><a href="#">Вакансии</a></li>
+                </ul>
+            </div>
+            <div class="footer__section">
+                <h3 class="footer__title">Клиентам</h3>
+                <ul class="footer-list">
+                    <li class="footer-list__item"><a href="#">Доставка</a></li>
+                    <li class="footer-list__item"><a href="#">Оплата</a></li>
+                    <li class="footer-list__item"><a href="#">Возврат и обмен</a></li>
+                    <li class="footer-list__item"><a href="#">Часто задаваемые вопросы</a></li>
+                </ul>
+            </div>
+            <div class="footer__section">
+                <h3 class="footer__title">Контакты</h3>
+                <ul class="footer-list">
+                    <li class="footer-list__item"><a href="{{ url_for("shop.contacts") }}">Связаться с нами</a></li>
+                    <li class="footer-list__item">Телефон: <a href="tel:+79991234567">+7 (777) 777-77-77</a></li>
+                    <li class="footer-list__item">Email: <a href="mailto:support@innomart.ru">support@innomart.ru</a></li>
+                    <li class="footer-list__item"><span>Адрес: Караганда, ул. Бухар-Жырау, 9</span></li>
+                </ul>
+            </div>
+            <div class="footer__section">
+                <h3 class="footer__title">Мы в соцсетях</h3>
+                <ul class="footer-list footer-list--social">
+                    <li class="footer-list__item">
+                        <a href="https://vk.com/innomart" target="_blank" rel="noopener noreferrer" aria-label="ВКонтакте">
+                            <span class="material-icons">group</span> ВКонтакте
+                        </a>
+                    </li>
+                    <li class="footer-list__item">
+                        <a href="https://t.me/innomart" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+                            <span class="material-icons">send</span> Telegram
+                        </a>
+                    </li>
+                    <li class="footer-list__item">
+                        <a href="https://instagram.com/innomart" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                            <span class="material-icons">photo_camera</span> Instagram
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <p class="footer__copyright">© {{ current_year }} InnoMart. Все права защищены.</p>
+            <p class="footer__legal">
+                <a href="#">Политика конфиденциальности</a> |
+                <a href="#">Условия использования</a>
+            </p>
+        </div>
+    </div>
+</footer>
+
+{% block scripts %}{% endblock %}
+</body>
+</html>

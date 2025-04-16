@@ -1,0 +1,20 @@
+{% macro render_breadcrumbs(items) %}
+<nav class="breadcrumbs" aria-label="Навигационная цепочка">
+    <ul class="breadcrumbs__list">
+        <li class="breadcrumbs__item">
+            <a href="{{ url_for('shop.home') }}" class="breadcrumbs__link">Главная</a>
+        </li>
+        {% for item in items %}
+            {% if loop.last %}
+                <li class="breadcrumbs__item breadcrumbs__item--active">
+                    <span class="breadcrumbs__text">{{ item.title }}</span>
+                </li>
+            {% else %}
+                <li class="breadcrumbs__item">
+                    <a href="{{ item.url }}" class="breadcrumbs__link">{{ item.title }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</nav>
+{% endmacro %}
